@@ -3,6 +3,10 @@
 <robot name="my_robot" 
   xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <!-- <xacro:include filename="$(find my_robot)/urdf/macros.xacro"/> -->
+  <xacro:include filename="$(find my_robot)/urdf/materials.gazebo"/>
+  <xacro:include filename="$(find my_robot)/urdf/my_robot.gazebo" />
+  
   <link name="robot_footprint"></link>
 
   <joint name="robot_footprint_joint" type="fixed">
@@ -129,5 +133,65 @@
     <dynamics damping="1.0" friction="1.0"/>
   </joint>
 
+  <link name="camera">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+
+    <collision name='collision'>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size=".05 .05 .05"/>
+      </geometry>
+    </collision>
+
+    <visual name='camera_visual'>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size=".05 .05 .05"/>
+      </geometry>
+    </visual>
+
+    <box_inertia x="0.05" y="0.05" z="0.05" m="0.1" />
+
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <inertia ixx="1e-6" ixy="0.0" ixz="0.0" iyy="1e-6" iyz="0.0" izz="1e-6"/>
+    </inertial>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0.0 1.0 0.0"/>
+    <origin xyz="0.2 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="chassis"/>
+    <child link="camera"/>
+    
+  </joint>
+
+  <link name="hokuyo">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="1e-5"/>
+      <inertia ixx="1e-6" ixy="0.0" ixz="0.0" iyy="1e-6" iyz="0.0" izz="1e-6"/>
+    </inertial>
+    <visual name="hokuyo_visual">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <mesh filename="package://my_robot/meshes/hokuyo.dae"/>
+      </geometry>
+    </visual>
+    <collision name="hokuyo_collision">
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="hokuyo_joint" type="fixed">
+    <origin xyz="0.15 0.0 0.1" rpy="0.0 0.0 0.0"/>
+    <parent link="chassis"/>
+    <child link="hokuyo"/>
+    <axis xyz="0.0 1.0 0.0"/>
+  </joint>
 </robot>
 
