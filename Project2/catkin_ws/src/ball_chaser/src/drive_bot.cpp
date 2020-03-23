@@ -20,14 +20,16 @@ bool handle_drive_request(ball_chaser::DriveToTarget::Request& req, ball_chaser:
 
     // Publish angles to drive the robot
     motor_command_publisher.publish(motor_command);
-
-    ROS_INFO_STREAM("Linear velocity: " + std::to_string(motor_command.linear.x) + " , angular velocity: " + std::to_string(motor_command.angular.z));
+    res.msg_feedback = "Linear velocity: " + std::to_string(motor_command.linear.x) + " , angular velocity: " + std::to_string(motor_command.angular.z);
+    ROS_INFO_STREAM(res.msg_feedback);
+    
+    return true;
 }
 
 int main(int argc, char** argv)
 {
     // Initialize a ROS node
-    ros::init(argc, argv, "ball_chaser_node");
+    ros::init(argc, argv, "drive_bot");
 
     // Create a ROS NodeHandle object
     ros::NodeHandle n;
