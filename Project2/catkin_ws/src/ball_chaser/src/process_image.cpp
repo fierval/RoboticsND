@@ -34,7 +34,7 @@ void process_image_callback(const sensor_msgs::Image img)
     {
         if (img.data[i] == white_pixel && img.data[i+1] == white_pixel && img.data[i+2] == white_pixel) 
         {
-            white_idx = i;
+            white_idx = i / 3;
             break;
         }
     }
@@ -46,19 +46,19 @@ void process_image_callback(const sensor_msgs::Image img)
         return;
     }
 
-    int img_col = white_idx % img.step;
+    int img_col = white_idx % img.width;
     
-    if(img_col < img.step/3) // left
+    if(img_col < img.width / 3) // left
     {
-        drive_robot(.3, .5);
+        drive_robot(.1, .5);
     }
-    else if(img_col < 2 * img.step / 3)
+    else if(img_col < 2 * img.width / 3)
     {
-        drive_robot(.3, .0);
+        drive_robot(.1, .0);
     }
     else
     {
-        drive_robot(.3, -.5);
+        drive_robot(.1, -.5);
     }
 }
 
