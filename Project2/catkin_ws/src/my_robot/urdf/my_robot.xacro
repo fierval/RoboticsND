@@ -11,10 +11,10 @@
   
   <xacro:property name="wheelWidth" value="0.05"/>
   <xacro:property name="wheelRadius" value="0.1"/>
-  <xacro:property name="wheelPos" value="${chassisRadius + wheelWidth}"/>
+  <xacro:property name="wheelPos" value="${chassisRadius + wheelWidth/2}"/>
   <xacro:property name="wheelMass" value="5"/>
 
-  <xacro:property name="casterRadius" value="${wheelRadius / 2.0 - 0.0001}"/>
+  <xacro:property name="casterRadius" value="${wheelRadius / 2.0}"/>
   <xacro:property name="casterMass" value="5"/>
 
   <xacro:property name="cameraSize" value="0.05"/>
@@ -37,19 +37,16 @@
 
     <inertial>
       <mass value="${chassisMass}"/>
-      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
       <cylinder_inertia m="${chassisMass}" r="${chassisRadius}" h="${chassisHeight}" />
     </inertial>
 
     <collision name='collision'>
-      <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
         <cylinder length="${chassisHeight}" radius="${chassisRadius}"/>
       </geometry>
     </collision>
 
     <visual name='chassis_visual'>
-      <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
         <cylinder length="${chassisHeight}" radius="${chassisRadius}"/>
       </geometry>
@@ -58,31 +55,31 @@
     <!-- caster wheels -->
     <!-- back -->
     <collision name='back_caster_collision'>
-      <origin xyz="${casterRadius-chassisRadius} 0 ${chassisHeight - wheelRadius - casterRadius}" rpy=" 0 0 0"/>
+      <origin xyz="${casterRadius-chassisRadius} 0 ${-casterRadius}" rpy=" 0 0 0"/>
       <geometry>
-        <sphere radius="${casterRadius}"/>
+        <sphere radius="${casterRadius - 0.0001}"/>
       </geometry>
     </collision>
 
     <visual name='back_caster_visual'>
-      <origin xyz="${casterRadius-chassisRadius} 0 ${chassisHeight - wheelRadius - casterRadius}" rpy=" 0 0 0"/>
+      <origin xyz="${casterRadius-chassisRadius} 0 ${-casterRadius}" rpy=" 0 0 0"/>
       <geometry>
-        <sphere radius="${casterRadius}"/>
+        <sphere radius="${casterRadius - 0.0001}"/>
       </geometry>
     </visual>
 
     <!-- front -->
     <collision name='front_caster_collision'>
-      <origin xyz="${chassisRadius - casterRadius} 0 ${chassisHeight - wheelRadius - casterRadius}" rpy=" 0 0 0"/>
+      <origin xyz="${chassisRadius - casterRadius} 0 ${-casterRadius}" rpy=" 0 0 0"/>
       <geometry>
-        <sphere radius="${casterRadius}"/>
+        <sphere radius="${casterRadius - 0.0001}"/>
       </geometry>
     </collision>
 
     <visual name='front_caster_visual'>
-      <origin xyz="${chassisRadius - casterRadius} 0 ${chassisHeight - wheelRadius - casterRadius}" rpy=" 0 0 0"/>
+      <origin xyz="${chassisRadius - casterRadius} 0 ${-casterRadius}" rpy=" 0 0 0"/>
       <geometry>
-        <sphere radius="${casterRadius}"/>
+        <sphere radius="${casterRadius - 0.0001}"/>
       </geometry>
     </visual>
 
