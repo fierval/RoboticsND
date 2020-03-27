@@ -3,3 +3,6 @@ build/
 lib/
 devel/
 install/
+metastore_db/
+
+*.log
