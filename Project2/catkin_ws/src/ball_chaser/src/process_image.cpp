@@ -30,9 +30,9 @@ void process_image_callback(const sensor_msgs::Image img)
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
 
-    for (int i = 0; i < img.height * img.step; i++) 
+    for (int i = 0; i < img.height * img.step - 2; i+=3) 
     {
-        if (img.data[i] == white_pixel) 
+        if (img.data[i] == white_pixel && img.data[i+1] == white_pixel && img.data[i+2] == white_pixel) 
         {
             white_idx = i;
             break;
@@ -50,7 +50,7 @@ void process_image_callback(const sensor_msgs::Image img)
     
     if(img_col < img.step/3) // left
     {
-        drive_robot(.3, -.5);
+        drive_robot(.3, .5);
     }
     else if(img_col < 2 * img.step / 3)
     {
@@ -58,7 +58,7 @@ void process_image_callback(const sensor_msgs::Image img)
     }
     else
     {
-        drive_robot(.3, .5);
+        drive_robot(.3, -.5);
     }
 }
 
