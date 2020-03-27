@@ -5,19 +5,19 @@
 
   <xacro:property name="PI" value="3.1415926535897931"/>
 
-  <xacro:property name="chassisHeight" value="0.1"/>
-  <xacro:property name="chassisRadius" value="0.2"/>
+  <xacro:property name="chassisHeight" value="0.2"/>
+  <xacro:property name="chassisRadius" value="0.4"/>
   <xacro:property name="chassisMass" value="15"/>
   
-  <xacro:property name="wheelWidth" value="0.05"/>
-  <xacro:property name="wheelRadius" value="0.1"/>
+  <xacro:property name="wheelWidth" value="0.08"/>
+  <xacro:property name="wheelRadius" value="0.2"/>
   <xacro:property name="wheelPos" value="${chassisRadius + wheelWidth/2}"/>
   <xacro:property name="wheelMass" value="5"/>
 
   <xacro:property name="casterRadius" value="${wheelRadius / 2.0}"/>
   <xacro:property name="casterMass" value="5"/>
 
-  <xacro:property name="cameraSize" value="0.05"/>
+  <xacro:property name="cameraSize" value="0.1"/>
   <xacro:property name="cameraMass" value="0.1"/>
 
   <xacro:include filename="$(find my_robot)/urdf/macros.xacro"/>
@@ -183,18 +183,15 @@
 
   <link name="hokuyo">
     <inertial>
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <mass value="1e-5"/>
       <inertia ixx="1e-6" ixy="0.0" ixz="0.0" iyy="1e-6" iyz="0.0" izz="1e-6"/>
     </inertial>
     <visual name="hokuyo_visual">
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <mesh filename="package://my_robot/meshes/hokuyo.dae"/>
       </geometry>
     </visual>
     <collision name="hokuyo_collision">
-      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
       <geometry>
         <box size="0.1 0.1 0.1"/>
       </geometry>
@@ -202,7 +199,7 @@
   </link>
 
   <joint name="hokuyo_joint" type="fixed">
-    <origin xyz="0.15 0.0 0.1" rpy="0.0 0.0 0.0"/>
+    <origin xyz="${7 * chassisRadius / 8.0} 0.0 0.15" rpy="0.0 0.0 0.0"/>
     <parent link="chassis"/>
     <child link="hokuyo"/>
     <axis xyz="0.0 1.0 0.0"/>
