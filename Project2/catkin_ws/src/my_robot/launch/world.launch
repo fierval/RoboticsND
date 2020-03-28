@@ -9,8 +9,6 @@
   <arg name="pitch" default="0"/>
   <arg name="yaw" default="0"/>
 
-  <env name="GAZEBO_RESOURCE_PATH" value="$(find my_robot)/media/materials"/>
-
   <!-- Launch other relevant files-->
   <include file="$(find my_robot)/launch/robot_description.launch"/>
 
