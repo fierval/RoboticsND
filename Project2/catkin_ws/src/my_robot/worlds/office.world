@@ -5833,7 +5833,7 @@
     <model name='my_ball'>
       <link name='link_0'>
         <inertial>
-          <mass>1</mass>
+          <mass>1.5</mass>
           <inertia>
             <ixx>0.1</ixx>
             <ixy>0</ixy>
@@ -5853,7 +5853,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <sphere>
-              <radius>0.1</radius>
+              <radius>0.2</radius>
             </sphere>
           </geometry>
           <material>
@@ -5879,7 +5879,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <sphere>
-              <radius>0.1</radius>
+              <radius>0.2</radius>
             </sphere>
           </geometry>
           <surface>
