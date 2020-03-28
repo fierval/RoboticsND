@@ -26,5 +26,11 @@
     <material>
       Gazebo/Red
     </material>
-  </gazebo>  
+  </gazebo> 
+  <gazebo reference="robot_head">
+    <material>
+      Gazebo/Purple
+    </material>
+  </gazebo> 
+  
 </robot>

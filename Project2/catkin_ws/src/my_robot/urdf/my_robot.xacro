@@ -3,6 +3,7 @@
 <robot name="my_robot" 
   xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <!-- Properties -->
   <xacro:property name="PI" value="3.1415926535897931"/>
 
   <xacro:property name="chassisHeight" value="0.2"/>
@@ -20,6 +21,10 @@
   <xacro:property name="cameraSize" value="0.1"/>
   <xacro:property name="cameraMass" value="0.1"/>
 
+  <xacro:property name="headRadius" value="${chassisHeight}" />
+  <xacro:property name="headMass" value="${chassisMass / 3.0}" />
+
+  <!-- Includes -->
   <xacro:include filename="$(find my_robot)/urdf/macros.xacro"/>
   <xacro:include filename="$(find my_robot)/urdf/materials.gazebo"/>
   <xacro:include filename="$(find my_robot)/urdf/my_robot.gazebo" />
@@ -85,6 +90,8 @@
 
   </link>
 
+  <!-- Wheels -->
+
   <link name="left_wheel">
    <pose>0 ${wheelPos} 0 0 0 0</pose>
     <visual>
@@ -149,6 +156,7 @@
     <dynamics damping="1.0" friction="1.0"/>
   </joint>
 
+  <!-- Sensors -->
   <link name="camera">
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
 
@@ -203,6 +211,34 @@
     <parent link="chassis"/>
     <child link="hokuyo"/>
     <axis xyz="0.0 1.0 0.0"/>
+  </joint>
+
+  <link name="robot_head">
+    <pose>0.0 0.0 ${chassisHeight/2} 0.0 0.0 0.0</pose>
+
+    <inertial>
+      <mass value="${headMass}"/>
+      <sphere_inertia m="${headMass}" r="${headRadius}"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <sphere radius="${headRadius}"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <geometry>
+        <sphere radius="${headRadius}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_chassis_head" type="fixed">
+    <origin xyz="0.0 0.0 ${chassisHeight/2}" rpy="0.0 0.0 0.0"/>
+    <parent link="chassis"/>
+    <child link="robot_head"/>
+    <axis xyz="0.0 1 0.0"/>
   </joint>
 </robot>
 
