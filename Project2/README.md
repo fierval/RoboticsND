@@ -27,6 +27,7 @@ $ cd Project2/catkin_ws
 $ source devel/setup.bash
 $ roslaunch ball_chaser ball_chaser.launch
 ```
+## References
 
-
+.xacro files organized as described in [this repo](https://github.com/Randulfe/Resource-Gathering-with-Swarm-Robotics/tree/master/catkin_ws/src/mybot_description/urdf).
 
