@@ -8,3 +8,4 @@
 ## Projects
 
 [Project1: Build My World](./Project1)
+[Project2: Go Chase It!](./Project2)
