@@ -1,6 +1,6 @@
 # Go Chase it!
 
-![RNProject2](https://user-images.githubusercontent.com/987574/77837063-6c1a3780-7119-11ea-8948-8e4f051c8eb2.gif)
+![RNProject2](https://user-images.githubusercontent.com/39171152/77837222-89500580-711b-11ea-99c1-c47fd2a75b39.gif)
 
 ## Setup
 
