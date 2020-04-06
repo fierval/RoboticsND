@@ -1,0 +1,244 @@
+<?xml version='1.0'?>
+
+<robot name="my_robot" 
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Properties -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+
+  <xacro:property name="chassisHeight" value="0.2"/>
+  <xacro:property name="chassisRadius" value="0.4"/>
+  <xacro:property name="chassisMass" value="15"/>
+  
+  <xacro:property name="wheelWidth" value="0.08"/>
+  <xacro:property name="wheelRadius" value="0.2"/>
+  <xacro:property name="wheelPos" value="${chassisRadius + wheelWidth/2}"/>
+  <xacro:property name="wheelMass" value="5"/>
+
+  <xacro:property name="casterRadius" value="${wheelRadius / 2.0}"/>
+  <xacro:property name="casterMass" value="5"/>
+
+  <xacro:property name="cameraSize" value="0.1"/>
+  <xacro:property name="cameraMass" value="0.1"/>
+
+  <xacro:property name="headRadius" value="${chassisHeight}" />
+  <xacro:property name="headMass" value="${chassisMass / 3.0}" />
+
+  <!-- Includes -->
+  <xacro:include filename="$(find my_robot)/urdf/macros.xacro"/>
+  <xacro:include filename="$(find my_robot)/urdf/materials.gazebo"/>
+  <xacro:include filename="$(find my_robot)/urdf/my_robot.gazebo" />
+  
+  <link name="robot_footprint"></link>
+
+  <joint name="robot_footprint_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="robot_footprint"/>
+    <child link="chassis" />
+  </joint>
+
+  <link name='chassis'>
+    <pose>0 0 0 0 0 0</pose>
+
+    <inertial>
+      <mass value="${chassisMass}"/>
+      <cylinder_inertia m="${chassisMass}" r="${chassisRadius}" h="${chassisHeight}" />
+    </inertial>
+
+    <collision name='collision'>
+      <geometry>
+        <cylinder length="${chassisHeight}" radius="${chassisRadius}"/>
+      </geometry>
+    </collision>
+
+    <visual name='chassis_visual'>
+      <geometry>
+        <cylinder length="${chassisHeight}" radius="${chassisRadius}"/>
+      </geometry>
+    </visual>
+
+    <!-- caster wheels -->
+    <!-- back -->
+    <collision name='back_caster_collision'>
+      <origin xyz="${casterRadius-chassisRadius} 0 ${-casterRadius}" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="${casterRadius - 0.0001}"/>
+      </geometry>
+    </collision>
+
+    <visual name='back_caster_visual'>
+      <origin xyz="${casterRadius-chassisRadius} 0 ${-casterRadius}" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="${casterRadius - 0.0001}"/>
+      </geometry>
+    </visual>
+
+    <!-- front -->
+    <collision name='front_caster_collision'>
+      <origin xyz="${chassisRadius - casterRadius} 0 ${-casterRadius}" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="${casterRadius - 0.0001}"/>
+      </geometry>
+    </collision>
+
+    <visual name='front_caster_visual'>
+      <origin xyz="${chassisRadius - casterRadius} 0 ${-casterRadius}" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="${casterRadius - 0.0001}"/>
+      </geometry>
+    </visual>
+
+  </link>
+
+  <!-- Wheels -->
+
+  <link name="left_wheel">
+   <pose>0 ${wheelPos} 0 0 0 0</pose>
+    <visual>
+      <origin xyz="0 0 0" rpy= "0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="${wheelRadius}" length="${wheelWidth}" />
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy= "0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="${wheelRadius}" length="${wheelWidth}" />
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="${wheelMass}"/>
+      <origin xyz="0.0 0 0" rpy=" 0 1.5707 1.5707"/>
+      <cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}" />
+    </inertial>
+  </link>
+
+  <link name="right_wheel">
+    <pose>0 ${-wheelPos} 0 0 0 0</pose>
+    <visual>
+      <origin xyz="0 0 0" rpy= "0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="${wheelRadius}" length="${wheelWidth}" />
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy= "0 1.5707 1.5707"/>
+      <geometry>
+        <cylinder radius="${wheelRadius}" length="${wheelWidth}" />
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="5.0"/>
+       <origin xyz="0 0 0" rpy= "0 1.5707 1.5707"/>
+       <cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}" />
+    </inertial>
+  </link>
+
+ <joint type="continuous" name="left_wheel_hinge">
+    <origin xyz="0 ${wheelPos} 0" rpy="0 0 0"/>
+    <child link="left_wheel"/>
+    <parent link="chassis"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <dynamics damping="1.0" friction="1.0"/>
+  </joint>
+
+ <joint type="continuous" name="right_wheel_hinge">
+    <origin xyz="0 ${-wheelPos} 0" rpy="0 0 0"/>
+    <child link="right_wheel"/>
+    <parent link="chassis"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+    <limit effort="10000" velocity="1000"/>
+    <dynamics damping="1.0" friction="1.0"/>
+  </joint>
+
+  <!-- Sensors -->
+  <link name="camera">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+
+    <collision name='collision'>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
+      </geometry>
+    </collision>
+
+    <visual name='camera_visual'>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${cameraSize} ${cameraSize} ${cameraSize}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="${cameraMass}"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <box_inertia x="${cameraSize}" y="${cameraSize}" z="${cameraSize}" m="${cameraMass}" />
+    </inertial>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0.0 1.0 0.0"/>
+    <origin xyz="${chassisRadius} 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="chassis"/>
+    <child link="camera"/>
+    
+  </joint>
+
+  <link name="hokuyo">
+    <inertial>
+      <mass value="1e-5"/>
+      <inertia ixx="1e-6" ixy="0.0" ixz="0.0" iyy="1e-6" iyz="0.0" izz="1e-6"/>
+    </inertial>
+    <visual name="hokuyo_visual">
+      <geometry>
+        <mesh filename="package://my_robot/meshes/hokuyo.dae"/>
+      </geometry>
+    </visual>
+    <collision name="hokuyo_collision">
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="hokuyo_joint" type="fixed">
+    <origin xyz="${7 * chassisRadius / 8.0} 0.0 0.15" rpy="0.0 0.0 0.0"/>
+    <parent link="chassis"/>
+    <child link="hokuyo"/>
+    <axis xyz="0.0 1.0 0.0"/>
+  </joint>
+
+  <link name="robot_head">
+    <pose>0.0 0.0 ${chassisHeight/2} 0.0 0.0 0.0</pose>
+
+    <inertial>
+      <mass value="${headMass}"/>
+      <sphere_inertia m="${headMass}" r="${headRadius}"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <sphere radius="${headRadius}"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <geometry>
+        <sphere radius="${headRadius}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint_chassis_head" type="fixed">
+    <origin xyz="0.0 0.0 ${chassisHeight/2}" rpy="0.0 0.0 0.0"/>
+    <parent link="chassis"/>
+    <child link="robot_head"/>
+    <axis xyz="0.0 1 0.0"/>
+  </joint>
+</robot>
+
