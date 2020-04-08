@@ -4,6 +4,7 @@
 
 * Ubuntu 18.04
 * Gazebo 7.16.0 (9.12.0 recommended)
+* ROS melodic
 
 ## Projects
 
