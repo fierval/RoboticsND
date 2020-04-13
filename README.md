@@ -10,4 +10,4 @@
 
 * [Project1: Build My World](./Project1)
 * [Project2: Go Chase It!](./Project2)
-* [Project3: Where am I?](./Project3)
+* [Project4: Where am I?](./Project3)
