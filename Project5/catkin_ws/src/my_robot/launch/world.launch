@@ -35,7 +35,11 @@
 <!--launch rviz-->
 <node name="rviz" pkg="rviz" type="rviz" respawn="false"/>
 
-<!-- amcl -->
-<include file="$(find my_robot)/launch/amcl.launch" />
+<!-- mapping -->
+<include file="$(find my_robot)/launch/mapping.launch" />
+
+<!-- teleop -->
+<include file="$(find my_robot)/launch/teleop.launch" />
+
 
 </launch>
