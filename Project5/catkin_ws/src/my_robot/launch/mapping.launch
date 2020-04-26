@@ -36,14 +36,18 @@
 
 			<!-- Loop Closure Detection -->
 			<!-- 0=SURF 1=SIFT 2=ORB 3=FAST/FREAK 4=FAST/BRIEF 5=GFTT/FREAK 6=GFTT/BRIEF 7=BRISK 8=GFTT/ORB 9=KAZE -->
-			<param name="Kp/DetectorStrategy" type="string" value="0" />
+			<!-- OpenCV not installed with SIFT/SURF -->
+			<param name="Kp/DetectorStrategy" type="string" value="2" />
 
 			<!-- Maximum visual words per image (bag-of-words) -->
 			<param name="Kp/MaxFeatures" type="string" value="400" />
 
-			<!-- Used to extract more or less SURF features -->
-			<param name="SURF/HessianThreshold" type="string" value="100" />
+			<!-- ORB N of pyramid levels. Decrease for perf-->
+			<param name="ORB\NLevels" type="string" value="8" />
 
+			<!-- Scale factor. Increase for perf-->
+			<param name="ORB\ScaleFactor=1.2" type="string" value="1.2" />
+			
 			<!-- Loop Closure Constraint -->
 			<!-- 0=Visual, 1=ICP (1 requires scan)-->
 			<param name="Reg/Strategy" type="string" value="0" />
@@ -81,6 +85,6 @@
 			<remap from="scan"            to="/scan"/>
 		</node>		
 		-->
-		
+
 	</group>
 </launch>
