@@ -42,7 +42,7 @@
 
     <inertial>
       <mass value="${chassisMass}"/>
-      <cylinder_inertia m="${chassisMass}" r="${chassisRadius}" h="${chassisHeight}" />
+      <xacro:cylinder_inertia m="${chassisMass}" r="${chassisRadius}" h="${chassisHeight}" />
     </inertial>
 
     <collision name='collision'>
@@ -111,7 +111,7 @@
     <inertial>
       <mass value="${wheelMass}"/>
       <origin xyz="0.0 0 0" rpy=" 0 1.5707 1.5707"/>
-      <cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}" />
+      <xacro:cylinder_inertia  m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}" />
     </inertial>
   </link>
 
@@ -134,7 +134,7 @@
     <inertial>
       <mass value="5.0"/>
        <origin xyz="0 0 0" rpy= "0 1.5707 1.5707"/>
-       <cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}" />
+       <xacro:cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}" />
     </inertial>
   </link>
 
@@ -177,7 +177,7 @@
     <inertial>
       <mass value="${cameraMass}"/>
       <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
-      <box_inertia x="${cameraSize}" y="${cameraSize}" z="${cameraSize}" m="${cameraMass}" />
+      <xacro:box_inertia x="${cameraSize}" y="${cameraSize}" z="${cameraSize}" m="${cameraMass}" />
     </inertial>
   </link>
 
@@ -198,7 +198,7 @@
 
   <link name="camera_link_optical">
   </link>
-  
+
   <!-- Laser Sensor-->
   <link name="hokuyo">
     <inertial>
@@ -229,7 +229,7 @@
 
     <inertial>
       <mass value="${headMass}"/>
-      <sphere_inertia m="${headMass}" r="${headRadius}"/>
+      <xacro:sphere_inertia m="${headMass}" r="${headRadius}"/>
     </inertial>
 
     <visual>

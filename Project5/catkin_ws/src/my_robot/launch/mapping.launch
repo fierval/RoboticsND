@@ -2,11 +2,11 @@
 
 <launch>
 	<!-- Arguments for launch file with defaults provided -->
-	<arg name="database_path" default="rtabmap.db" />
+	<arg name="database_path" default="/home/boris/rtabmap.db" />
 	<arg name="rgb_topic" default="/rgb/image_raw" />
 	<arg name="depth_topic" default="/depth/image_raw" />
 	<arg name="camera_info_topic" default="/rgb/camera_info" />
-	<arn name="scan_topic" default="/my_robot/laser/scan" />
+	<arg name="scan_topic" default="/my_robot/laser/scan" />
 
 	<!-- Mapping Node -->
 	<group ns="rtabmap">
