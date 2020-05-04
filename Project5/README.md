@@ -1,5 +1,9 @@
-# Where Am I? The Robotic Escape
+# Map my World
 
-Guiding the robot out of the room.
+Driving the robot around with teleop and mapping its world
 
-[![Alt text](https://img.youtube.com/vi/1JwGtaMX0KA/0.jpg)](https://www.youtube.com/watch?v=1JwGtaMX0KA)
+## The world to map
+
+Should be sufficiently feature-rich.
+
+![world](docs/images/world.png)
