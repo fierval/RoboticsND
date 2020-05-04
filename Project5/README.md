@@ -18,8 +18,6 @@ The resulting mapping database is available [here](https://www.dropbox.com/s/fuw
 
 ![graph](docs/images/map_graph.png)
 
-**NOTE** The path appears to go through the 4-wheeler robot. While driving around, the mapping robot bumped into it and moved it slightly out the original position.
-
 Wall texture and bookcase corners provided the most useful information for the mapping.
 
 ![features](docs/images/features.png)
