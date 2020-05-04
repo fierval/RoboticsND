@@ -14,7 +14,7 @@ Should be sufficiently feature-rich.
 
 ### RTAB-Map Database
 
-The resulting mapping database is available [here](https://www.dropbox.com/s/fuwtrxiw456wu13/rtabmap.db?dl=0)
+The resulting mapping database is available [here](https://www.dropbox.com/s/ajps3ut4imy9yy1/rtabmap.db?dl=0)
 
 ![graph](docs/images/map_graph.png)
 
