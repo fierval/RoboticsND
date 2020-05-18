@@ -1,0 +1,12 @@
+<package>
+  <description brief="my_turtle">
+
+     my_turtle
+
+  </description>
+  <author>boris</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/my_turtle</url>
+
+</package>
