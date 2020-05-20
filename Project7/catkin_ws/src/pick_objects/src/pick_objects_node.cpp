@@ -42,18 +42,18 @@ int main(int argc, char **argv)
   move_base_msgs::MoveBaseGoal goal;
   goal.target_pose.header.frame_id = "map";
 
-  vector<string> goalNames{"Pickup", "Dropoff"};
-  vector<tuple<float, float, float>> pos{make_tuple(3.0, 4.0, 1.0), make_tuple(-5.0, 1.0, 1.0)};
+  vector<tuple<string, float, float, float>> poses{make_tuple("Pickup", 3.0, 4.0, 1.0), make_tuple("Dropoff", -5.0, 1.0, 1.0)};
 
-  for (int i = 0; i < 2; i++)
+  for (auto pos: poses)
   {
+    string goalName;
     float x, y, w;
-    tie(x, y, w) = pos[i];
+    tie(goalName, x, y, w) = pos;
 
     SetGoal(goal, x, y, w);
 
     // Send the goal position and orientation for the robot to reach
-    string name(goalNames[i]);
+    string name(goalName);
     name[0] = tolower(name[0]);
 
     ROS_INFO("Sending %s", name.c_str());
@@ -65,11 +65,11 @@ int main(int argc, char **argv)
     // Check if the robot reached its goal
     if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
     {
-      PrintLoc(goalNames[i], x, y, w);
+      PrintLoc(goalName, x, y, w);
     }
     else
     {
-      ROS_INFO("Failed to reach %s location", goalNames[i].c_str());
+      ROS_INFO("Failed to reach %s location", goalName.c_str());
       return 1;
     }
 
