@@ -1,24 +1,40 @@
-# Map my World
+# Home Service Robot
 
-Driving the robot around with teleop and mapping its world.
+The robot drives around a house picks up and drops off objects. We are using [turtlebot3](http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/) for this task
 
-## The world to map
+## Prerequisits
+1. Ubuntu 18.04
+1. ROS melodic
+1. Gazebo 9.12
+1. GCC 7.5
 
-Should be sufficiently feature-rich.
+## Installation
 
-![world](docs/images/world.png)
+1. Install turtlebot3:
 
-#### Using ORB rather than SURF features, keeping all the defaults.
-
-## Mapping results
-
-### RTAB-Map Database
-
-The resulting mapping database is available [here](https://www.dropbox.com/s/ajps3ut4imy9yy1/rtabmap.db?dl=0)
-
-![graph](docs/images/map_graph.png)
-
-Wall texture and bookcase corners provided the most useful information for the mapping.
-
-![features](docs/images/features.png)
-
+    ```sh
+    sudo apt update
+    sudo apt install ros-melodic-turtlebot3*
+    ```
+2. Set turtlebot3 model
+    ```sh
+    echo 'export TURTLEBOT3_MODEL=waffle_pi' >> ~/.bashrc
+    ```
+3. Clone this repo
+    ```sh
+    mkdir ~/git && cd git
+    git clone https://github.com/fierval/RoboticsND.git
+    ```
+4. Build everything
+    ```sh
+    cd RoboticsND/Project7/catkin_ws
+    catkin_make
+    ```
+5. Add the follwoing to `~/.bashrc`
+    ```sh
+    PROJECT=Project7
+    source /opt/ros/melodic/setup.bash
+    cd ~/git/udacity/robotics/RoboticsND/$PROJECT/catkin_ws
+    source devel/setup.bash
+    ```
+6. `source ~/.bashrc` or restart terminal
