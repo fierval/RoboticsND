@@ -43,6 +43,8 @@ public:
     float x, y, w;
     tie(ignore, x, y, w) = poses[0];
 
+    ROS_INFO("Setting pickup at x: %f, y: %f, w: %f", x, y, w);
+
     auto marker = FillMarker(x, y, w, visualization_msgs::Marker::ADD);
     marker_pub.publish(marker);
   }
@@ -90,7 +92,7 @@ private:
         action = visualization_msgs::Marker::ADD;
       }
 
-      ROS_INFO("At %s x:%f, y:%f, w:%f", name.c_str(), pos.x, pos.y, orient.w);
+      ROS_INFO("At %s x: %f, y: %f, w: %f", name.c_str(), pos.x, pos.y, orient.w);
       marker = FillMarker(x, y, w, action);
       marker_pub.publish(marker);
     }
