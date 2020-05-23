@@ -159,4 +159,6 @@ int main(int argc, char **argv)
   }
 
   pickupDropoff.PublishPickup();
+  ros::spin();
+  return 0;
 }
