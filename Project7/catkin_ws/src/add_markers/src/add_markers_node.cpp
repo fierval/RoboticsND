@@ -17,7 +17,7 @@ public:
   static const string pickup;
   static const string dropoff;
 
-  PickupDropoff(pickup_dropoff_points &_poses) : poses(_poses), r(5)
+  PickupDropoff(pickup_dropoff_points &_poses) : poses(_poses)
   {
   }
 
@@ -53,7 +53,6 @@ private:
   // Pickup and dropoff locations
   pickup_dropoff_points poses;
   ros::NodeHandle n;
-  ros::Rate r;
   ros::Publisher marker_pub;
   ros::Subscriber odom_sub;
 
