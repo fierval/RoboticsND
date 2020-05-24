@@ -10,7 +10,7 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   visualization_msgs
-  nav_msgs
+  pick_objects
 )
 
 ## System dependencies are found with CMake's conventions
@@ -42,7 +42,7 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add "message_runtime" and every package in MSG_DEP_SET to
     catkin_package(CATKIN_DEPENDS   roscpp
      visualization_msgs
-     nav_msgs
+     pick_objects
    )
 ##   * uncomment the add_*_files sections below as needed
 ##     and list every .msg/.srv/.action file to be processed

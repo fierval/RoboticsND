@@ -1,6 +1,7 @@
 #include <ros/ros.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
+#include "pick_objects/PointReached.h"
 
 #include <string>
 #include <vector>
@@ -29,6 +30,8 @@ int main(int argc, char **argv)
 {
   // Initialize the simple_navigation_goals node
   ros::init(argc, argv, "pickup_objects");
+  ros::NodeHandle nh;
+  ros::Publisher goal_pub = nh.advertise<pick_objects::PointReached>("goal_state", 5);
 
   //tell the action client that we want to spin a thread by default
   MoveBaseClient ac("move_base", true);
@@ -66,6 +69,10 @@ int main(int argc, char **argv)
     if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
     {
       PrintLoc(goalName, x, y, w);
+      // publish that we have reached the goal
+      pick_objects::PointReached msg;
+      msg.name = name;
+      goal_pub.publish(msg);
     }
     else
     {
