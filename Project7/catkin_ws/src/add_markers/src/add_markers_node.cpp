@@ -23,8 +23,9 @@ public:
 
   int init()
   {
-    ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
-    ros::Subscriber odom_sub = n.subscribe("odom", 5, &PickupDropoff::OdomCallback, this);
+    marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
+    odom_sub = n.subscribe("odom", 5, &PickupDropoff::OdomCallback, this);
+    
     while (marker_pub.getNumSubscribers() < 1)
     {
       if (!ros::ok())
