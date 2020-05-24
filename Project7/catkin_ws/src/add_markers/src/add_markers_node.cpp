@@ -53,7 +53,10 @@ private:
     int32_t action;
     visualization_msgs::Marker marker;
 
-    ROS_INFO("Reached: %s x: %f, y: %f", msg->name.c_str(), msg->x, msg->y);
+    string name(msg->name);
+    name[0] = toupper(name[0]);
+
+    ROS_INFO("%s x: %f, y: %f", name.c_str(), msg->x, msg->y);
     if(msg->name == "set")
     {
       action = state == add ? visualization_msgs::Marker::ADD : visualization_msgs::Marker::DELETEALL;
