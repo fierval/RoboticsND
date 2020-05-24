@@ -82,7 +82,7 @@ private:
 
     ROS_INFO("Received odometry x: %f, y: %f", pos.x, pos.y);
     ROS_INFO("Distance: %f", hypotf(pos.x - x, pos.y - y));
-    
+
     // we have reached the point of interest
     if (hypotf(pos.x - x, pos.y - y) <= min_dist)
     {
