@@ -53,13 +53,13 @@ private:
     int32_t action;
     visualization_msgs::Marker marker;
 
-    ROS_INFO("Reached: %s", msg->name.c_str());
+    ROS_INFO("Reached: %s x: %f, y: %f", msg->name.c_str(), msg->x, msg->y);
     if(msg->name == "set")
     {
       action = state == add ? visualization_msgs::Marker::ADD : visualization_msgs::Marker::DELETEALL;
       state = static_cast<State>((state + 1) % 2);
     }
-    if(msg->name == "pickup")
+    else if(msg->name == "pickup")
     {
       action = visualization_msgs::Marker::DELETEALL;
     }
@@ -69,7 +69,7 @@ private:
     }
     else 
     {
-      ROS_ERROR("Unknonw goal");
+      ROS_ERROR("Unknown goal");
       action = visualization_msgs::Marker::DELETEALL;
     }
 
