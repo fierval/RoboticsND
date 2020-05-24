@@ -8,6 +8,16 @@
 #include <tuple>
 using namespace std;
 
+void PublishGoal(ros::Publisher goal_pub , string name, float x, float y)
+{
+  // publish that we have reached the goal
+  pick_objects::PointReached msg;
+  msg.name = name;
+  msg.x = x;
+  msg.y = y;
+  goal_pub.publish(msg);
+}
+
 void SetGoal(move_base_msgs::MoveBaseGoal &goal, float x, float y, float w)
 {
   goal.target_pose.header.stamp = ros::Time::now();
@@ -47,13 +57,14 @@ int main(int argc, char **argv)
 
   vector<tuple<string, float, float, float>> poses{make_tuple("Pickup", 3.0, 4.0, 1.0), make_tuple("Dropoff", -5.0, 1.0, 1.0)};
 
-  for (auto pos: poses)
+  for (auto pos : poses)
   {
     string goalName;
     float x, y, w;
     tie(goalName, x, y, w) = pos;
 
     SetGoal(goal, x, y, w);
+    PublishGoal(goal_pub, "set", x, y);
 
     // Send the goal position and orientation for the robot to reach
     string name(goalName);
@@ -69,10 +80,7 @@ int main(int argc, char **argv)
     if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
     {
       PrintLoc(goalName, x, y, w);
-      // publish that we have reached the goal
-      pick_objects::PointReached msg;
-      msg.name = name;
-      goal_pub.publish(msg);
+      PublishGoal(goal_pub, name, x, y);
     }
     else
     {

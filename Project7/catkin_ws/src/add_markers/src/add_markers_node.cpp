@@ -24,6 +24,7 @@ public:
   {
     marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
     pickup_sub = n.subscribe<pick_objects::PointReached>("goal_state", 5, &PickupDropoff::GoalStateCallback, this);
+    state = add;
 
     while (marker_pub.getNumSubscribers() < 1)
     {
@@ -39,7 +40,8 @@ public:
   }
 
 private:
-
+  enum State {add, del};
+  State state;
   ros::NodeHandle n;
   ros::Publisher marker_pub;
   ros::Subscriber pickup_sub;
@@ -54,7 +56,8 @@ private:
     ROS_INFO("Reached: %s", msg->name.c_str());
     if(msg->name == "set")
     {
-      action = visualization_msgs::Marker::ADD;
+      action = state == add ? visualization_msgs::Marker::ADD : visualization_msgs::Marker::DELETEALL;
+      state = static_cast<State>((state + 1) % 2);
     }
     if(msg->name == "pickup")
     {
