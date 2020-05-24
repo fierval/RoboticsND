@@ -14,18 +14,18 @@ typedef vector<point_of_interest> pickup_dropoff_points;
 class PickupDropoff
 {
 public:
-  static const string pickup;
-  static const string dropoff;
+  static const string Pickup;
+  static const string Dropoff;
 
-  PickupDropoff(pickup_dropoff_points &_poses) : poses(_poses)
+  PickupDropoff(pickup_dropoff_points &_poses) : poses(_poses), state(pickup)
   {
   }
 
   int init()
   {
     marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
-    odom_sub = n.subscribe("odom", 5, &PickupDropoff::OdomCallback, this);
-    
+    odom_sub = n.subscribe<nav_msgs::Odometry>("odom", 5, &PickupDropoff::OdomCallback, this);
+
     while (marker_pub.getNumSubscribers() < 1)
     {
       if (!ros::ok())
@@ -51,6 +51,10 @@ public:
   }
 
 private:
+
+  enum State {pickup, dropoff};
+
+  State state;
   // Pickup and dropoff locations
   pickup_dropoff_points poses;
   ros::NodeHandle n;
@@ -58,43 +62,51 @@ private:
   ros::Subscriber odom_sub;
 
   const float min_dist = 0.2;
-  const float min_orient = 0.05;
 
   void OdomCallback(const nav_msgs::Odometry::ConstPtr &msg)
   {
     geometry_msgs::Point pos = msg->pose.pose.position;
     geometry_msgs::Quaternion orient = msg->pose.pose.orientation;
 
-    for (auto poi : poses)
-    {
-      ManageMarker(poi, pos, orient);
-    }
+    ManageMarker(pos, orient);
   }
 
-  void ManageMarker(point_of_interest poi, geometry_msgs::Point pos, geometry_msgs::Quaternion orient)
+  void ManageMarker(geometry_msgs::Point pos, geometry_msgs::Quaternion orient)
   {
     string name;
     float x, y, w;
-    tie(name, x, y, w) = poi;
     visualization_msgs::Marker marker;
     int32_t action;
+    point_of_interest poi = poses[state];
+    tie(name, x, y, w) = poi;
 
+    ROS_INFO("Received odometry x: %f, y: %f", pos.x, pos.y);
+    ROS_INFO("Distance: %f", hypotf(pos.x - x, pos.y - y));
+    
     // we have reached the point of interest
-    if (hypotf(pos.x - x, pos.y - y) <= min_dist && abs(w - orient.w) <= min_orient && abs(orient.x) <= min_orient && abs(orient.y) <= min_orient && abs(orient.z) <= min_orient)
+    if (hypotf(pos.x - x, pos.y - y) <= min_dist)
     {
-      if (name == pickup)
-      {
-        //if we are picking up - disappear the object
-        action = visualization_msgs::Marker::DELETE;
-      }
-      else
-      {
-        action = visualization_msgs::Marker::ADD;
-      }
+      ROS_INFO("Reached %s x: %f, y: %f, w: %f", name.c_str(), pos.x, pos.y, orient.w);
 
-      ROS_INFO_ONCE("Reached %s x: %f, y: %f, w: %f", name.c_str(), pos.x, pos.y, orient.w);
-      marker = FillMarker(x, y, w, action);
+      switch (state)
+      {
+      case pickup:
+        action = visualization_msgs::Marker::DELETE;
+        state = dropoff;
+        marker.action = action;
+        break;
+      
+      case dropoff:
+        action = visualization_msgs::Marker::ADD;
+        state = pickup;
+        marker = FillMarker(x, y, w, action);
+        break;
+
+      default:
+        break;
+      }
       marker_pub.publish(marker);
+
     }
   }
 
@@ -141,14 +153,14 @@ private:
   }
 };
 
-const string PickupDropoff::pickup = "Pickup";
-const string PickupDropoff::dropoff = "Dropoff";
+const string PickupDropoff::Pickup = "Pickup";
+const string PickupDropoff::Dropoff = "Dropoff";
 
 int main(int argc, char **argv)
 {
   pickup_dropoff_points poses{
-      make_tuple(PickupDropoff::pickup, 3.0, 4.0, 1.0),
-      make_tuple(PickupDropoff::dropoff, -5.0, 1.0, 1.0)};
+      make_tuple(PickupDropoff::Pickup, 3.0, 4.0, 1.0),
+      make_tuple(PickupDropoff::Dropoff, -5.0, 1.0, 1.0)};
 
   ros::init(argc, argv, "add_markers");
   PickupDropoff pickupDropoff(poses);
