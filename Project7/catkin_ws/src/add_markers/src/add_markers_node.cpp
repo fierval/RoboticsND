@@ -56,8 +56,8 @@ private:
   ros::Publisher marker_pub;
   ros::Subscriber odom_sub;
 
-  const float min_dist = 0.01;
-  const float min_orient = 0.01;
+  const float min_dist = 0.2;
+  const float min_orient = 0.05;
 
   void OdomCallback(const nav_msgs::Odometry::ConstPtr &msg)
   {
@@ -91,7 +91,7 @@ private:
         action = visualization_msgs::Marker::ADD;
       }
 
-      ROS_INFO("At %s x: %f, y: %f, w: %f", name.c_str(), pos.x, pos.y, orient.w);
+      ROS_INFO_ONCE("Reached %s x: %f, y: %f, w: %f", name.c_str(), pos.x, pos.y, orient.w);
       marker = FillMarker(x, y, w, action);
       marker_pub.publish(marker);
     }
