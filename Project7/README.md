@@ -2,6 +2,8 @@
 
 The robot drives around a house picks up and drops off objects. We are using [turtlebot3](http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/) for this task
 
+[![Turtlebot3 Navigation](https://img.youtube.com/vi/dUE83tnyloI/0.jpg)](https://www.youtube.com/watch?v=dUE83tnyloI)
+
 ## Prerequisits
 1. Ubuntu 18.04
 1. ROS melodic
