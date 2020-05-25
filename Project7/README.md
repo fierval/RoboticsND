@@ -50,3 +50,8 @@ The robot drives around a house picks up and drops off objects. We are using [tu
 1. if `setup.bash` is not sourced in `.bashrc` then `source devel/setup.bash`
 1. Make sure `TURTLEBOT3_MODEL` environment variable is set (above).
 1. `scripts/home_service.sh`
+
+
+## Structure
+
+![structure](docs/images/structure.png)
