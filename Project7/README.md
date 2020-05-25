@@ -35,7 +35,7 @@ The robot drives around a house picks up and drops off objects. We are using [tu
     cd RoboticsND/Project7/catkin_ws
     catkin_make
     ```
-5. Add the follwoing to `~/.bashrc`
+5. (Optional) Add the follwoing to `~/.bashrc`
     ```sh
     PROJECT=Project7
     source /opt/ros/melodic/setup.bash
@@ -43,3 +43,10 @@ The robot drives around a house picks up and drops off objects. We are using [tu
     source devel/setup.bash
     ```
 6. `source ~/.bashrc` or restart terminal
+
+## Running
+
+1. Start the terminal and `cd <git_root>/Project7/catkin_ws`
+1. if `setup.bash` is not sourced in `.bashrc` then `source devel/setup.bash`
+1. Make sure `TURTLEBOT3_MODEL` environment variable is set (above).
+1. `scripts/home_service.sh`
