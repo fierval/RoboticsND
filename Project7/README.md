@@ -1,6 +1,6 @@
 # Home Service Robot
 
-The robot drives around a house picks up and drops off objects. We are using [turtlebot3](http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/) for this task
+The robot drives around a house picks up and drops off objects. We are using [TurtleBot3](http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/) for this task
 
 ## Video
 
@@ -56,7 +56,7 @@ The robot drives around a house picks up and drops off objects. We are using [tu
 
 Using [TurtleBot3](http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/) with its navigation stack to implement SLAM and navigation. 
 
-In order to use `TurtleBot3` with our own Gazebo world we create a package `my_turtle` which contains copies of some of the `TurtleBot3` launch files modified to direct launches at our custom components: [home.world](catkin_ws/src/my_turtle/worlds/home.world) and [turtlebot3_navigation.rviz](catkin_ws/src/my_turtle/rviz/turtlebot3_navigation.rviz)
+In order to use `TurtleBot3` with our own Gazebo world we create a package `my_turtle` which contains copies of some of the `TurtleBot3` launch files modified to launch our custom components: [home.world](catkin_ws/src/my_turtle/worlds/home.world) and [turtlebot3_navigation.rviz](catkin_ws/src/my_turtle/rviz/turtlebot3_navigation.rviz)
 
 All of the `TurtleBot3` launch files come with RVIZ support so we do not need an extra package to store RVIZ launch and configuration files.
 
@@ -70,7 +70,7 @@ We then use it to test navigation with [test_navigation.sh](catkin_ws/scripts/te
 
 We add two packages: [pick_objects](catkin_ws/src/pick_objects) (tested by [pick_objects.sh](catkin_ws/scripts/pick_objects.sh)) and [add_markers](catkin_ws/src/add_markers) (tested initially by [add_marker.sh](catkin_ws/scripts/add_marker.sh))
 
-At this point we modify our [turtlebot3_navigation.rviz](catkin_ws/src/my_turtle/rviz/turtlebot3_navigation.rviz) to subscribe to Markers. Markers are monikers for the object that we "place" somewhere in the map for the robot to pickup, deliver to a different point in the map and drop off there.
+At this point we modify our [turtlebot3_navigation.rviz](catkin_ws/src/my_turtle/rviz/turtlebot3_navigation.rviz) to subscribe to Markers. Markers are monikers for the object that we "place" somewhere on the map for the robot to pickup, deliver to a different point in the map and drop off there.
 
 We use moving actions for our robot to move to designated points on the map, show/hide markers there to simulate placement/pickup/dropoff.
 
@@ -103,6 +103,6 @@ where `name` can take one of the following values:
     1. Sets pickup goal by sending a `set` message to `goal_state`
     1. Navigates towards the pickup goal, once reached sends `pickup` message
     1. Waits 5 sec
-    1. Repeats everything with `dropoff` message instead of `pickup`.
+    1. Repeats everything with "dropoff" instead of "pickup".
 
 The `add_markers` node simply displays and hides markers as it receives `PointReached` messages.
