@@ -12,3 +12,4 @@
 * [Project2: Go Chase It!](./Project2)
 * [Project4: Where am I?](./Project4)
 * [Project5: Map My World](./Project5)
+* [Project7: Home Service Robot](./Project7)
