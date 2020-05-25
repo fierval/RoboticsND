@@ -4,7 +4,7 @@ The robot drives around a house picks up and drops off objects. We are using [tu
 
 ## Video
 
-[![Turtlebot3 Navigation](https://img.youtube.com/vi/dUE83tnyloI/0.jpg)](https://youtu.be/dUE83tnyloI?t=5)
+[![Turtlebot3 Navigation](https://img.youtube.com/vi/dUE83tnyloI/0.jpg)](https://youtu.be/dUE83tnyloI?t=16)
 
 
 ## Prerequisits
