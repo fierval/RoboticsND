@@ -4,6 +4,8 @@ The robot drives around a house picks up and drops off objects. We are using [tu
 
 [![Turtlebot3 Navigation](https://img.youtube.com/vi/dUE83tnyloI/0.jpg)](https://www.youtube.com/watch?v=dUE83tnyloI)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dUE83tnyloI?start=7" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Prerequisits
 1. Ubuntu 18.04
 1. ROS melodic
